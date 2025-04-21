@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class HayMachine : MonoBehaviour
 {
-    public float maxSpeed = 35f;
-    private float currSpeed = 0f;
+    public float maxSpeed = 750f;
+    public Vector3 velocity = Vector3.zero;
     private float limit = 22f;
-    private float speed = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,18 +27,13 @@ public class HayMachine : MonoBehaviour
             direction += 1;
         }
 
-        // if (direction != 0)
-        // {
-        //     currSpeed = Mathf.SmoothDamp(currSpeed, maxSpeed, ref speed, 0.3f);
-        // }
-        // else
-        // {
-        //     currSpeed = Mathf.SmoothDamp(currSpeed, 0f, ref speed, 0.3f);
-        // }
+        Vector3 targetPosition = transform.position;
+        targetPosition.x = targetPosition.x + direction * 100;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, maxSpeed * Time.deltaTime);
 
-        Vector3 position = transform.position;
-        position.x = Mathf.Clamp(position.x + direction * currSpeed * Time.deltaTime, -limit, limit);
+        Vector3 finalPosition = transform.position;
+        finalPosition.x = Mathf.Clamp(finalPosition.x, -limit, limit);
 
-        transform.position = Vector3.SmoothDamp(transform.position, position, maxSpeed * Time.deltaTime);
+        transform.position = finalPosition;
     }
 }
