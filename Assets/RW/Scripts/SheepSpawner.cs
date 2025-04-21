@@ -43,4 +43,12 @@ public class SheepSpawner : MonoBehaviour
         sheepList.Add(sheep);
         sheep.GetComponent<Sheep>().SetSpawner(this);
     }
+
+    public void DestroyAllSheep()
+    {
+        foreach(GameObject go in sheepList)
+        {
+            Destroy(go);
+        }
+    }
 }

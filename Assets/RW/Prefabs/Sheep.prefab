@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2770243528391447930}
   - component: {fileID: 3783776452530737662}
   - component: {fileID: 7519725428722324517}
-  - component: {fileID: 236364470439190970}
+  - component: {fileID: 9214328918975094941}
   m_Layer: 0
   m_Name: Sheep
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &236364470439190970
+--- !u!114 &9214328918975094941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,8 +76,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 10
-  gotHayDestroyDelay: 1
-  dropDestroyDelay: 4
+  dropDestroyDelay: 2
+  heartOffset: 0
+  heartPrefab: {fileID: 1718740301280376120, guid: 7b9ba47f4103cc14083a5e6fa8af6f11,
+    type: 3}
   sheepSpawner: {fileID: 0}
 --- !u!1001 &5181493521375365420
 PrefabInstance:

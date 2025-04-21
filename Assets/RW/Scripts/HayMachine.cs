@@ -13,6 +13,10 @@ public class HayMachine : MonoBehaviour
     public float shootInterval ; //The smallest amount of time between shots
     private float shootTimer ; //A timer that to keep track whether the machine can shoot
 
+    public float currentInput = 0f;
+    public float smoothInputVelocity = 0f;
+    private float smoothInputSpeed = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,29 +25,18 @@ public class HayMachine : MonoBehaviour
 
     private void ShootHay()
     {
-        Vector3 spawnPoint = haySpawnpoint.position;
-        spawnPoint.z -= 34;
-        Instantiate(hayBalePrefab , spawnPoint, Quaternion.identity);
+        SoundManager.Instance.PlayShootClip();
+        Instantiate(hayBalePrefab, haySpawnpoint.position, Quaternion.identity);
     }
 
     private void manageMovement()
     {
-        int direction = 0;
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            direction -= 1;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            direction += 1;
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
 
-        Vector3 targetPosition = transform.position;
-        targetPosition.x = targetPosition.x + direction * 100;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, maxSpeed * Time.deltaTime);
-
+        currentInput = Mathf.SmoothDamp(currentInput, horizontalInput, ref smoothInputVelocity, smoothInputSpeed);
+        
         Vector3 finalPosition = transform.position;
-        finalPosition.x = Mathf.Clamp(finalPosition.x, -limit, limit);
+        finalPosition.x = Mathf.Clamp(finalPosition.x + currentInput * maxSpeed * Time.deltaTime, -limit, limit);
 
         transform.position = finalPosition;
     }
